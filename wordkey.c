@@ -1,3 +1,5 @@
+// Wordkey, by Dave Cameron 2013
+// you are free to do whatever you want with this
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>

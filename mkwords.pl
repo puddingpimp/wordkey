@@ -1,4 +1,7 @@
 #!/usr/bin/perl -w
+# word key wordtable generator
+# by Dave Cameron, 2013
+# you can do whatever you want with this
 use strict;
 open WORDS,"<", "/usr/share/dict/words";
 my @words = <WORDS>;
