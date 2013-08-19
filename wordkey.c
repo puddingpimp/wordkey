@@ -1,9 +1,11 @@
 // Wordkey, by Dave Cameron 2013
 // you are free to do whatever you want with this
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 #include <err.h>
+#include <getopt.h>
 
 #include "words.h"
 
@@ -47,12 +49,35 @@ print_key(const unsigned char *key, size_t keylength)
 	return 0;
 }
 
+void
+usage(const char *name)
+{
+	fprintf(stderr, "Usage: %s [-l keylength] [-f randfile]\n", name);
+	exit(1);
+}
+
 int
 main(int argc, char **argv)
 {
-	unsigned char key[256/8];
-	const size_t keylength = sizeof(key);
+	unsigned char *key;
+	size_t keylength = 32;
 	const char *random_file = "/dev/urandom";
+	int opt;
+	while((opt = getopt(argc, argv, ":f:l:"))!=-1) {
+		switch(opt) {
+		case 'f':
+			random_file = optarg;
+			break;
+		case 'l':
+			keylength = atoi(optarg);
+			break;
+		default:
+			usage(argv[0]);
+		}
+	}
+	key = malloc(keylength);
+	if(!key)
+		err(1, "malloc");
 	if(gen_key(key, keylength, random_file))
 		err(1, "gen_key");
 	if(print_key(key, keylength))
