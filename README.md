@@ -4,7 +4,7 @@ dictionary words.
 It iterates over 12-bit portions of the internally generated key and
 uses these as indexes into a table of 4096 (0x400) words. By this
 method, the pass phrase is ensured to contain the same entropy as the
-key (hardcoded to 256 bits for now). 
+key. 
 
 Note that if a weak hash is used on the passphrase in your
 cryptosystem's implementation it will not preserve the entire entropy
